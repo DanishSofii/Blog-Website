@@ -1,0 +1,150 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.gotohome{
+    height: 20px;
+    width: 20px;
+    background-color: red;
+}
+
+.btnprimary{
+    background-color: orange;
+    color: #fff;
+    height: 2rem;
+    width: 6rem;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+
+.btnsecondary{
+    background-color: blueviolet;
+    color: #fff;
+    height: 2rem;
+    width: 5rem;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.08s ease-in-out;
+}
+.btnsecondary:hover{
+    background-color:rgb(120, 0, 232) ;
+    transform: scale(1.06);
+}
+
+
+
+
+/* ---------------------------------------------- blog container ------------------ */
+.blogsWrapper{
+    margin-top: 3rem;
+    height: 80vh;
+    width: 85%;
+    background-color: rgba(51, 17, 17, 0.104);
+    padding:2.5rem ;
+    border-radius: 5px;
+    backdrop-filter: blur(2px);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+}
+.blogImage{
+    height: 14rem;
+    transition: all 0.2s ease-in-out;
+}
+.blogImage:hover{
+    transform: scale(1.2);
+}
+
+.blogContainer{
+    background-color: rgb(4, 0, 9);
+    width: 21rem;
+    height: 27rem;
+    margin-bottom:1rem ;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    opacity: 0.89;
+}
+
+.blogContainer:hover{
+    box-shadow: 1px 1px 10px 3px #979797;
+}
+.blogImageContainer{
+    overflow: hidden;
+}
+.blogContentContainer{
+    padding: 1.5rem;
+}
+
+.blogTitleContainer{
+    margin-bottom: 10px;
+}
+
+.blogParaContainer{
+    margin-bottom: 10px;
+}
+.blogPara{
+    color: #fff;
+}
+.blogTitle{
+    color: #fff;
+}
+
+/* --------------------------------------------------open post pop time container css ---------------------------- */
+
+.showPostContainer{
+    position: absolute;
+    width: 55rem;
+    background-color: rgba(183, 103, 222, 0.479);
+    padding: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    top: 2rem;
+    left: 20%;
+    right: 25%;
+    backdrop-filter: blur(15px);
+    border-radius:10px ;
+    height: 95vh;
+    transition: all 0.2s ease-in-out;
+}
+.scroller{
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.openPostImg{
+    margin-top: 5rem;
+    height: 60vh;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius:10px ;
+}
+
+.openPostTitle{
+    color: #fff;
+}
+.openPostPara{
+    color: #fff;
+}
+/* .openPostParaContainer{
+    overflow-y: auto;
+} */
+
+
+
+/* ----------------------------------------------------------------------------------------------------------------------------- */
