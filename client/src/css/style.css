@@ -75,6 +75,7 @@
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     opacity: 0.89;
+    
 }
 
 .blogContainer:hover{
@@ -85,6 +86,7 @@
 }
 .blogContentContainer{
     padding: 1.5rem;
+   
 }
 
 .blogTitleContainer{
@@ -93,10 +95,16 @@
 
 .blogParaContainer{
     margin-bottom: 10px;
+   
 }
-.blogPara{
+.blogPara {
     color: #fff;
-}
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Set the number of lines to show */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
 .blogTitle{
     color: #fff;
 }
@@ -109,7 +117,7 @@
     background-color: rgba(183, 103, 222, 0.479);
     padding: 3rem;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
     top: 2rem;
@@ -119,18 +127,19 @@
     border-radius:10px ;
     height: 95vh;
     transition: all 0.2s ease-in-out;
+    overflow-y:auto ;
 }
 .scroller{
-    overflow: auto;
+    /* overflow: auto; */
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
 }
 .openPostImg{
-    margin-top: 5rem;
-    height: 60vh;
-    width: 100%;
+    /* margin-top: 5rem; */
+    height: 50vh;
+    width: 90%;
     margin-bottom: 20px;
     border-radius:10px ;
 }
@@ -148,3 +157,12 @@
 
 
 /* ----------------------------------------------------------------------------------------------------------------------------- */
+
+
+.multi-line-ellipsis {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Set the number of lines to show */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  

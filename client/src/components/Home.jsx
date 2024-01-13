@@ -60,7 +60,14 @@ const Home = () => {
       <div className="wrapper">
         <div className="container">
           <div className="navbar">
+
             <div className="formContainer">
+              <div className="searchContainer" style={{marginRight:"20px"}}>
+                <form className="searchform" action="" style={{display:"flex", flexDirection:"row"}}>
+                  <input className="search" type="text" placeholder="search" style={{color:"#000"}}/>
+                  <button  className="searchBtn" type="submit">GO</button>
+                </form>
+              </div>
             <form action="/Signin">
               <button type="submit" className="btnsecondary">
                 Sign in
@@ -76,7 +83,9 @@ const Home = () => {
           <div className="blogsWrapper">
             {postdata.map((data) => {
               return (
+                
                 <div className="blogContainer" key={data.id}>
+                  
                   <div className="blogImageContainer">
                     <img
                       className="blogImage"

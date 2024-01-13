@@ -59,3 +59,136 @@ body{
     overflow-y: auto;
     padding: 2rem;
 }
+.userProfileContainer{
+    background-color: rgb(189, 233, 233);
+    height: 100vh;
+    flex: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    padding: 2rem;
+}
+
+.createPostContainer{
+    background-color: rgb(189, 233, 233);
+    height: 100vh;
+    flex: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    overflow-y: auto;
+    padding: 2rem;
+}
+
+/* ---------------------------------------user profile page container -------- */
+
+
+.userProfileContainer{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+.userProfileImage{
+    height: 10rem;
+    width: 10rem;
+    border-radius: 50%;
+    border: 7px solid rgb(26, 26, 102);
+    padding: 0.5rem;
+}
+
+.userProfileImageContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 25vh;
+    width: 100%;
+    border-bottom: 2px solid gray;
+}
+
+.editPicBtn{
+    margin-top: 10px;
+    color: #fff;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+
+}
+.userProfileDetailsContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    width: 100%;
+    height: 50vh;
+}
+.detailsUser{
+    width: 20rem;
+}
+
+.ud{
+    padding: 1rem;
+    
+}
+#leftud{
+    border-right: 2px solid gray;
+}
+
+.detailsTable{
+    width: 50%;
+    /* height: 5    %; */
+}
+
+table td{
+    height: 3rem;
+    border-bottom: 2px solid gray;
+}
+
+.postUploadForm{
+    display: flex;
+    justify-content: space-between;
+    height: 60%;
+    background-color: rgba(0, 0, 255, 0.104);
+    padding:2rem 5rem;
+   
+
+}
+.fset{
+    border: none;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.formUploadBtn{
+    margin: 0;
+}
+#postUploadImg{
+    display: none;
+}
+
+input:focus{
+    color: #000;
+}
+input{
+    color: #000;
+}
+
+.uimglbl{
+    font-size: x-large;
+}
+
+.fsetimg{
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: self-start;
+}
+
+.editUserBtn{
+    width: 3rem;
+    height: 2rem;
+}
