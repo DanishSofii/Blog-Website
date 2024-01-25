@@ -1,8 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import "../css/signin.css"
 import "../css/style.css";
 import "../css/index.css";
-const Signin = () => {
+const Signin = ({onLogin}) => {  
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const navigate = useNavigate();
+  const handleLogin = async (e) => {
+    e.preventDefault();
+  
+    try {
+      const response = await axios.post("http://localhost:5000/api/checkvaliduser", {
+        username,
+        password,
+      });
+  
+      if (response.data.success) {
+        onLogin(response.data.user);
+        console.log('Login successful');
+        navigate("/User", { replace: true });
+      } else {
+        // Invalid login
+        console.log('Invalid credentials');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+    }
+  };
+  
+
   return (
     <div>
       <div class="signinContainer">
@@ -11,10 +39,10 @@ const Signin = () => {
                     <button className='gotohome'>x</button>
                 </form>
             <div class="heading-container"><h2 class="heading-text"> <span id="log">LogIn</span></h2></div>
-                <form action="/" method="post">
-                    <input type="text" name="studentEmail" placeholder="USN" required/>
-                    <input type="password" name="studentPassword" placeholder="Password" autocomplete="off" required/>
-                    <button type="submit">LogIn</button>
+                <form action="http://localhost:5000/api/checkvaliduser" method="post">
+                    <input type="text" name="uname" placeholder="Username" value={username} onChange={(e)=> setUsername(e.target.value)} required/>
+                    <input type="password" name="upass" placeholder="Password" autocomplete="off" value={password} onChange={(e)=>{setPassword(e.target.value)}} required/>
+                    <button type="submit" onClick={handleLogin}>LogIn</button>
                     
                     <form action="/signup">
                         <button>Signup</button>

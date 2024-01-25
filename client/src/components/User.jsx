@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
 import "../css/index.css";
 import "../css/style.css";
 import "../css/User.css";
@@ -45,10 +46,62 @@ const postdata = [
   },
 ];
 
-const User = () => {
+const User = ({user}) => {
+ 
   const [display, setDisplay] = useState("none");
   const [selectedPost, setSelectedPost] = useState(null);
   const [selectedTab,setSelectedTab] =useState(3);
+  const [file, setFile] = useState(null);
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [userDetails, setUserDetails] = useState(null);
+  const [userPosts,setUserPosts] = useState(null);
+  console.log("this is user id ",user)
+
+  useEffect(()=>{
+    const fetchUserDetails = async()=>{
+      try {
+        const response = await axios.get(`http://localhost:5000/User/${user}`);
+        
+        if(response.data.success){
+          setUserDetails(response.data.user);
+          setUserPosts(response.data.posts);
+          
+        }
+        else{
+          console.log("User not found");
+        }
+        
+      } catch (error) {
+        console.log("Error fetching user details ", error);
+        
+      }
+    }
+    fetchUserDetails();
+  },[user]);
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('title', title);
+    formData.append('content', content);
+    formData.append('userid',user.user_id);
+
+    axios.post('http://localhost:5000/api/uploadpostimg', formData)
+      .then(response => {
+        console.log(response.data);
+        // Handle success or redirect to another page
+      })
+      .catch(error => {
+        console.error('Error uploading image:', error);
+      });
+    }
   function handleOpenPost(postid) {
     setDisplay("flex");
     setSelectedPost(postid);
@@ -58,14 +111,17 @@ const User = () => {
     setDisplay("none");
   }
   const selectedPostData = selectedPost
-    ? postdata.find((post) => post.id === selectedPost)
+    ? userPosts.find((post) => post.post_id === selectedPost)
     : null;
+
+
   return (
     <div className="wrapper">
       <div className="sidebar">
         <div className="userDetails">
           <img className="userImg" src={carimg} alt="" />
-          <h3 className="userTitle">Danish Bashir</h3>
+          <h3 className="userTitle">{userDetails ? userDetails.name : 'Loading...'}</h3>
+
         </div>
         <div className="userBtnContainer">
         
@@ -97,27 +153,27 @@ const User = () => {
                 </tr>
                 <tr>
                     <td>name:</td>
-                    <td>danish</td>
+                    <td>{userDetails.name}</td>
                     <td><button className="editUserBtn">Edit</button></td>
                 </tr>
                 <tr>
                     <td>Email:</td>
-                    <td>danish</td>
+                    <td>{userDetails.email}</td>
                     <td><button className="editUserBtn">Edit</button></td>
                 </tr>
                 <tr>
                     <td>Phone Number:</td>
-                    <td>danish</td>
+                    <td>{userDetails.phone_number}</td>
                     <td><button className="editUserBtn">Edit</button></td>
                 </tr>
                 <tr>
-                    <td>Address:</td>
-                    <td>danish</td>
+                    <td>Account created on:</td>
+                    <td>{userDetails.created_at}</td>
                     <td><button className="editUserBtn">Edit</button></td>
                 </tr>
                 <tr>
                     <td>DOB:</td>
-                    <td>danish</td>
+                    <td>{userDetails.dob}</td>
                     <td><button className="editUserBtn">Edit</button></td>
                 </tr>
             </table>
@@ -130,21 +186,22 @@ const User = () => {
 
       {selectedTab === 2 &&
       <div className="createPostContainer">
-        <form className="postUploadForm" action="">
+        <form className="postUploadForm" action="/api/uploadpostimg" onSubmit={handleSubmit}>
         <fieldset className="fset fsetimg">
         <label className="uimglbl" htmlFor="postUploadImg">Image</label>
-        <input className="formUploadBtn" type="file" name="" id="postUploadImg" />
+        <input className="formUploadBtn" type="file" name="" id="postUploadImg" onChange={handleFileChange} />
         </fieldset>
         <fieldset className="fset">
         <label htmlFor="postUploadTitle">Title</label>
-        <input className="formUploadBtn" type="text" name="" id="postUploadTitle" />
+        <input className="formUploadBtn" type="text" name="" id="postUploadTitle" onChange={(e)=> setTitle(e.target.value)}/>
         </fieldset>
         <fieldset className="fset">
         <label htmlFor="postUploadContent">Content</label>
-        <input className="formUploadBtn" type="text" name="" id="postUploadContent" />
+        <input className="formUploadBtn" type="text" name="content" id="postUploadContent" onChange={(e)=> setContent(e.target.value)}/>
         </fieldset>
+        <input type="hidden" value={user.user_id} name="userid"/>
         <fieldset className="fset">
-        <button>submit</button>
+        <button type="submit">submit</button>
         </fieldset>
 
 
@@ -155,18 +212,18 @@ const User = () => {
       
       {selectedTab === 3 &&
       <div className="userPostContainer">
-        {postdata.map((data) => {
+        {userPosts?.map((data) => {
           return (
-            <div className="blogContainer" key={data.id}>
+            <div className="blogContainer" key={data.post_id}>
               <div className="blogImageContainer">
-                <img className="blogImage" src={data.image} alt="blogImage" />
+                <img className="blogImage" src="" alt="blogImage" />
               </div>
               <div className="blogContentContainer">
                 <div className="blogTitleContainer">
                   <h2 className="blogTitle">{data.title}</h2>
                 </div>
                 <div className="blogParaContainer">
-                  <p className="blogPara ">{data.para}</p>
+                  <p className="blogPara ">{data.content}</p>
                 </div>
                 <div className="blogOperationContainer">
                   {/* <button className="blogLikeBtn btnsecondary">like 0</button> */}
@@ -175,7 +232,7 @@ const User = () => {
                   </button>
                   <button
                     className="openPost btnsecondary"
-                    onClick={() => handleOpenPost(data.id)}
+                    onClick={() => handleOpenPost(data.post_id)}
                   >
                     Show Post
                   </button>
@@ -189,7 +246,8 @@ const User = () => {
             <div className="scroller">
               <img
                 className="openPostImg"
-                src={selectedPostData.image}
+                // src={selectedPostData.image}
+                src=""
                 alt=""
               />
               <div className="openPostContent">
@@ -197,7 +255,7 @@ const User = () => {
                   <h1 className="openPostTitle">{selectedPostData.title}</h1>
                 </div>
                 <div className="openPostParaContainer">
-                  <p className="openPostPara">{selectedPostData.para}</p>
+                  <p className="openPostPara">{selectedPostData.content}</p>
                 </div>
               </div>
             </div>
@@ -224,7 +282,7 @@ const User = () => {
 
     {selectedTab === 4 &&
     <div className="userPostContainer">
-    {postdata.map((data) => {
+    {postdata?.map((data) => {
       return (
         <div className="blogContainer" key={data.id}>
           <div className="blogImageContainer">

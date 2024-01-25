@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
+import axios from "axios";
 import "../css/index.css";
 import "../css/style.css";
 import carimg from "../images/car1.jpg";
+
+
 
 const postdata = [
   {
@@ -43,8 +46,17 @@ const postdata = [
 ];
 
 const Home = () => {
+  const imgPath = `../uploads/`;
   const [display, setDisplay] = useState("none");
   const [selectedPost ,setSelectedPost] = useState(null);
+  const [items,setItems] = useState([]);
+
+  useEffect(()=>{
+    axios.get('http://localhost:5000/api/items')
+    .then(response=> setItems(response.data))
+    .catch(error => console.log("Error fetching items",error));
+  },[]);
+  
   function handleOpenPost(postid) {
     setDisplay("flex");
     setSelectedPost(postid);
@@ -54,7 +66,7 @@ const Home = () => {
     setDisplay("none");
    
   }
-  const selectedPostData = selectedPost ? postdata.find(post => post.id === selectedPost) : null;
+  const selectedPostData = selectedPost ? items.find(post => post.post_id === selectedPost) : null;
   return (
     <div>
       <div className="wrapper">
@@ -81,15 +93,16 @@ const Home = () => {
             </div>
           </div>
           <div className="blogsWrapper">
-            {postdata.map((data) => {
+            {items.map((data) => {
               return (
                 
-                <div className="blogContainer" key={data.id}>
+                <div className="blogContainer" key={data.post_id}>
                   
                   <div className="blogImageContainer">
                     <img
                       className="blogImage"
-                      src={data.image}
+                      // src={data.image} 
+                      src={imgPath+data.filename+"jpg"}
                       alt="blogImage"
                     />
                   </div>
@@ -98,7 +111,7 @@ const Home = () => {
                       <h2 className="blogTitle">{data.title}</h2>
                     </div>
                     <div className="blogParaContainer">
-                      <p className="blogPara">{data.para}</p>
+                      <p className="blogPara">{data.content}</p>
                     </div>
                     <div className="blogOperationContainer">
                       {/* <button className="blogLikeBtn btnsecondary">like 0</button> */}
@@ -107,7 +120,7 @@ const Home = () => {
                       </button>
                       <button
                         className="openPost btnsecondary"
-                        onClick={()=>handleOpenPost(data.id)}
+                        onClick={()=>handleOpenPost(data.post_id)}
                       >
                         Show Post
                       </button>
@@ -130,7 +143,7 @@ const Home = () => {
             </div>
             <div className="openPostParaContainer">
               <p className="openPostPara">
-                {selectedPostData.para}
+                {selectedPostData.content}
               </p>
             </div>
           </div>
