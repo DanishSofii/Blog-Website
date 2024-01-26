@@ -55,33 +55,54 @@ const User = ({user}) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [userDetails, setUserDetails] = useState(null);
-  const [userPosts,setUserPosts] = useState(null);
+  const [userPosts,setUserPosts] = useState([]);
+  const [homeItems,setHomeItems] =useState(null);
   console.log("this is user id ",user)
-
   useEffect(()=>{
-    const fetchUserDetails = async()=>{
+    axios.get('http://localhost:5000/api/items')
+    .then(response=> setHomeItems(response.data))
+    .catch(error => console.log("Error fetching items",error));
+  },[]);
+  useEffect(() => {
+    const fetchUserDetails = async () => {
       try {
         const response = await axios.get(`http://localhost:5000/User/${user}`);
-        
-        if(response.data.success){
+        if (response.data.success) {
           setUserDetails(response.data.user);
-          setUserPosts(response.data.posts);
-          
-        }
-        else{
+          console.log(userDetails)
+        } else {
           console.log("User not found");
         }
-        
       } catch (error) {
         console.log("Error fetching user details ", error);
-        
       }
-    }
+    };
+
+    const fetchUserPosts = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/getUserPosts/${user}`);
+        if (response.data.success) {
+          setUserPosts(response.data.post);
+          console.log(userPosts)
+        } else {
+          console.log("User posts not found");
+        }
+      } catch (error) {
+        console.log("Error fetching user posts ", error);
+      }
+    };
+
     fetchUserDetails();
-  },[user]);
+    fetchUserPosts();
+    console.log("This is after func call",userPosts)
+  }, [user]);
+  useEffect(() => {
+    console.log("Updated UserPosts:", userPosts);
+  }, [userPosts]);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
+    console.log(file)
   };
 
   const handleSubmit = (e) => {
@@ -91,7 +112,7 @@ const User = ({user}) => {
     formData.append('image', file);
     formData.append('title', title);
     formData.append('content', content);
-    formData.append('userid',user.user_id);
+    formData.append('userid',user);
 
     axios.post('http://localhost:5000/api/uploadpostimg', formData)
       .then(response => {
@@ -111,7 +132,7 @@ const User = ({user}) => {
     setDisplay("none");
   }
   const selectedPostData = selectedPost
-    ? userPosts.find((post) => post.post_id === selectedPost)
+    ? homeItems.find((post) => post.post_id === selectedPost)
     : null;
 
 
@@ -216,9 +237,11 @@ const User = ({user}) => {
           return (
             <div className="blogContainer" key={data.post_id}>
               <div className="blogImageContainer">
-                <img className="blogImage" src="" alt="blogImage" />
+
+                <img className="blogImage" src={`http://localhost:5000/uploads/${data.filename}`} alt="blogImage" />
+                {console.log("jdfejfj",userPosts)}
               </div>
-              <div className="blogContentContainer">
+              <div className="blogContentContainer">  
                 <div className="blogTitleContainer">
                   <h2 className="blogTitle">{data.title}</h2>
                 </div>
@@ -246,9 +269,8 @@ const User = ({user}) => {
             <div className="scroller">
               <img
                 className="openPostImg"
-                // src={selectedPostData.image}
-                src=""
-                alt=""
+                src={`http://localhost:5000/uploads/${selectedPostData.filename}`}
+                alt="Can't retreive data from database"
               />
               <div className="openPostContent">
                 <div className="openPostTitleContainer">
@@ -282,18 +304,18 @@ const User = ({user}) => {
 
     {selectedTab === 4 &&
     <div className="userPostContainer">
-    {postdata?.map((data) => {
+    {homeItems?.map((data) => {
       return (
-        <div className="blogContainer" key={data.id}>
+        <div className="blogContainer" key={data.post_id}>
           <div className="blogImageContainer">
-            <img className="blogImage" src={data.image} alt="blogImage" />
+            <img className="blogImage" src={`http://localhost:5000/uploads/${data.filename}`}alt="blogImage" />
           </div>
           <div className="blogContentContainer">
             <div className="blogTitleContainer">
               <h2 className="blogTitle">{data.title}</h2>
             </div>
             <div className="blogParaContainer">
-              <p className="blogPara ">{data.para}</p>
+              <p className="blogPara ">{data.content}</p>
             </div>
             <div className="blogOperationContainer">
               {/* <button className="blogLikeBtn btnsecondary">like 0</button> */}
@@ -302,7 +324,7 @@ const User = ({user}) => {
               </button>
               <button
                 className="openPost btnsecondary"
-                onClick={() => handleOpenPost(data.id)}
+                onClick={() => handleOpenPost(data.post_id)}
               >
                 Show Post
               </button>
@@ -316,7 +338,7 @@ const User = ({user}) => {
         <div className="scroller">
           <img
             className="openPostImg"
-            src={selectedPostData.image}
+            src={`http://localhost:5000/uploads/${selectedPostData.filename}`}  
             alt=""
           />
           <div className="openPostContent">
@@ -324,7 +346,7 @@ const User = ({user}) => {
               <h1 className="openPostTitle">{selectedPostData.title}</h1>
             </div>
             <div className="openPostParaContainer">
-              <p className="openPostPara">{selectedPostData.para}</p>
+              <p className="openPostPara">{selectedPostData.content}</p>
             </div>
           </div>
         </div>

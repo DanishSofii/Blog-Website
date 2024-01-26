@@ -9,18 +9,21 @@ const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static('public'))
 
 
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
-      callback(null, './client/src/uploads'); // Create an 'uploads' directory in your project
+      callback(null, 'public/uploads'); // Create an 'uploads' directory in your project
     },
     filename: (req, file, callback) => {
       callback(null, file.originalname);
     }
   });
 
-const upload = multer({ storage: storage });
+  const upload = multer({ storage: storage }).single('image');
+
+
 const db = mysql.createConnection({
     host:"localhost",
     user:"root",
@@ -54,25 +57,36 @@ app.get("/api/items",(req,res)=>{
 })
 
 // upload post 
-app.post('/api/uploadpostimg', upload.single('image'), (req, res) => {
-    const { filename } = req.file;
-    const { title, content } = req.body;
-    
-    const {userid} = req.body.userid;
-    console.log(filename,title,content,userid)
-  
-    const sql = 'INSERT INTO blog_posts (title, content, filename,user_id) VALUES (?, ?, ?,?)';
-    db.query(sql, [title, content, filename,userid], (err, result) => {
+app.post('/api/uploadpostimg', (req, res) => {
+    upload(req, res, (err) => {
       if (err) {
-        console.error('MySQL error:', err);
+        console.error('Multer error:', err);
         res.status(500).send('Internal Server Error');
       } else {
-        res.status(201).send('Image added successfully');
+        const { filename } = req.file;
+        const { title, content, userid } = req.body;
+  
+
+        const userIdInt = parseInt(userid);
+  
+        if (isNaN(userIdInt)) {
+          res.status(400).send('Invalid user ID');
+          return;
+        }
+  
+        const sql = 'INSERT INTO blog_posts (title, content, filename, user_id) VALUES (?, ?, ?, ?)';
+        db.query(sql, [title, content, filename, userIdInt], (err, result) => {
+          if (err) {
+            console.error('MySQL error:', err);
+            res.status(500).send('Internal Server Error');
+          } else {
+            res.status(201).send('Image added successfully');
+          }
+        });
       }
-      console.log(result);
     });
   });
-
+  
 app.post("/api/checkvaliduser",(req,res)=>{
     const { username, password } = req.body;
     // console.log(username)
@@ -114,20 +128,35 @@ app.get("/User/:userId", (req, res) => {
         if (userResults.length === 0) {
             return res.status(404).send({ success: false, message: "User not found" });
         }
+        else if(userResults.length > 0){
+            const user = userResults[0];
+            return res.status(200).send({ success: true, user });
 
-        const user = userResults[0];
+        }
 
-        db.query(query2, [userId], (err, postResults) => {
-            if (err) {
-                return res.status(500).send("Error querying blog posts of user");
-            }
-            const posts = postResults || [];
-            // console.log(posts)
-
-            return res.status(200).send({ success: true, user, posts });
-        });
+        
     });
 });
+
+app.get("/getUserPosts/:userId", (req, res) => {
+    const userId = req.params.userId;
+    
+    const q = "select * from blog_posts where user_id = ?";
+    db.query(q, [userId], (err, posts) => {
+        if (err) {  
+            return res.status(500).send("Error querying database");
+        }
+
+        if (posts.length === 0) {
+            return res.status(404).send({ success: false, message: "posts not found" });
+        } else if(posts.length >0){
+            const post = posts;   
+            // console.log(post)
+            return res.status(200).send({ success: true, post });
+        }
+    });
+});
+
 app.post("/api/signup", (req, res) => {
     const { name, userName, password, email, pnumber, dob } = req.body;
 

@@ -102,7 +102,7 @@ const Home = () => {
                     <img
                       className="blogImage"
                       // src={data.image} 
-                      src={imgPath+data.filename+"jpg"}
+                      src={`http://localhost:5000/uploads/${data.filename}`}
                       alt="blogImage"
                     />
                   </div>
@@ -136,7 +136,7 @@ const Home = () => {
       {selectedPost&& 
       <div className="showPostContainer" style={{ display: display }}>
         <div className="scroller">
-          <img className="openPostImg" src={selectedPostData.image} alt="" />
+          <img className="openPostImg" src={`http://localhost:5000/uploads/${selectedPostData.filename}`} alt="cant retrieve from database" />
           <div className="openPostContent">
             <div className="openPostTitleContainer">
               <h1 className="openPostTitle">{selectedPostData.title}</h1>
