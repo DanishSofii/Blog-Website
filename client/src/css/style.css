@@ -25,7 +25,7 @@
 
 
 .btnsecondary{
-    background-color: blueviolet;
+    background-color: rgb(1, 62, 70);
     color: #fff;
     height: 2rem;
     width: 5rem;
@@ -36,7 +36,7 @@
     transition: all 0.08s ease-in-out;
 }
 .btnsecondary:hover{
-    background-color:rgb(120, 0, 232) ;
+    background-color:rgb(0, 124, 159) ;
     transform: scale(1.06);
 }
 
@@ -45,10 +45,10 @@
 
 /* ---------------------------------------------- blog container ------------------ */
 .blogsWrapper{
-    margin-top: 3rem;
-    height: 80vh;
-    width: 85%;
-    background-color: rgba(51, 17, 17, 0.104);
+    margin-top: 1rem;
+    height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.178);
     padding:2.5rem ;
     border-radius: 5px;
     backdrop-filter: blur(2px);
@@ -62,19 +62,23 @@
 .blogImage{
     height: 14rem;
     transition: all 0.2s ease-in-out;
+    /* border-bottom:2px solid  #000; */
 }
 .blogImage:hover{
     transform: scale(1.2);
 }
 
 .blogContainer{
-    background-color: rgb(4, 0, 9);
+    background-color: rgb(235, 235, 235);
     width: 21rem;
     height: 27rem;
     margin-bottom:1rem ;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
-    opacity: 0.89;
+    /* opacity: 0.89; */
+    border-radius: 7px;
+    overflow: hidden;
+    position: relative;
     
 }
 
@@ -83,6 +87,8 @@
 }
 .blogImageContainer{
     overflow: hidden;
+    /* border-bottom: 1px solid black; */
+    padding: 0;
 }
 .blogContentContainer{
     padding: 1.5rem;
@@ -98,7 +104,7 @@
    
 }
 .blogPara {
-    color: #fff;
+    color: #000;
     display: -webkit-box;
     -webkit-line-clamp: 3; /* Set the number of lines to show */
     -webkit-box-orient: vertical;
@@ -106,26 +112,28 @@
   }
   
 .blogTitle{
-    color: #fff;
+    color: #000;
+    font-size: medium;
 }
 
 /* --------------------------------------------------open post pop time container css ---------------------------- */
 
 .showPostContainer{
     position: absolute;
-    width: 55rem;
-    background-color: rgba(183, 103, 222, 0.479);
+    width: 90rem;
+    background-color: rgba(255, 255, 255, 0.98);
     padding: 3rem;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    top: 2rem;
-    left: 20%;
+    top: 0.2rem;
+    left: 3%;
     right: 25%;
-    backdrop-filter: blur(15px);
+    /* backdrop-filter: blur(15px); */
     border-radius:10px ;
-    height: 95vh;
+    border:2px solid black;
+    height: 97vh;
     transition: all 0.2s ease-in-out;
     overflow-y:auto ;
 }
@@ -139,21 +147,36 @@
 .openPostImg{
     /* margin-top: 5rem; */
     height: 50vh;
-    width: 90%;
+    /* width: 90%; */
     margin-bottom: 20px;
     border-radius:10px ;
+    border: 1px solid gray;
 }
 
 .openPostTitle{
-    color: #fff;
+    color: #000;
 }
 .openPostPara{
-    color: #fff;
+    color: #000;
+    line-height: 1.5;
+    text-indent:2rem;
+    text-align: start;
+    margin-top: 20px;
 }
 /* .openPostParaContainer{
     overflow-y: auto;
 } */
+.blogOperationContainer{
+    position: absolute;
+    bottom: 0;
+}
 
+.dangerbtn{
+    background-color: red;
+}
+.dangerbtn:hover{
+    background-color: rgb(255, 91, 91);
+}
 
 
 /* ----------------------------------------------------------------------------------------------------------------------------- */

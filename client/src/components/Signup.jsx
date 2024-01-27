@@ -34,8 +34,8 @@ const Signin = () => {
 
   return (
     <div>
-      <div class="signinContainer">
-            <div class="signInform-container">
+      <div class="signinContainer ">
+            <div class="signInform-container signout">
                 <form action="/">
                     <button className='gotohome'>x</button>
                 </form>

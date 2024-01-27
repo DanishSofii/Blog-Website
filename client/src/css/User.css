@@ -17,16 +17,17 @@ body{
 }
 
 .sidebar{
-    background-color: blueviolet;
+    background-color: rgb(240, 247, 252);
     height: 100vh;
     flex: 1;
+    border-right: 2px solid #a1a1a1;
 }
 .userDetails{
     padding: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 4px solid orange ;
+    border-bottom: 4px solid #a1a1a1 ;
 }
 .userImg{
     height: 45px;
@@ -41,15 +42,19 @@ body{
     border: none;
     border-radius: 0;
     background-color: transparent;
-    border: 1px solid gray  ;
+    /* border: 1px solid gray  ;s */
+    border-bottom: 1px solid #a1a1a1;
     margin: 0;
+}
+.userBtn:hover{
+    background-color: rgb(255, 200, 0);
 }
 
 .userBtnContainer{
     margin-top: 1rem;
 }
 .userPostContainer{
-    background-color: rgb(189, 233, 233);
+    background-color: rgb(191, 191, 191);
     height: 100vh;
     flex: 5;
     display: flex;
@@ -60,7 +65,7 @@ body{
     padding: 2rem;
 }
 .userProfileContainer{
-    background-color: rgb(189, 233, 233);
+    background-color: rgb(191, 191, 191);
     height: 100vh;
     flex: 5;
     display: flex;
@@ -72,7 +77,7 @@ body{
 }
 
 .createPostContainer{
-    background-color: rgb(189, 233, 233);
+    background-color: rgb(191, 191, 191);
     height: 100vh;
     flex: 5;
     display: flex;

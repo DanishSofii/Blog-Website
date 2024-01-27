@@ -2,54 +2,23 @@ import React, { useState , useEffect } from "react";
 import axios from "axios";
 import "../css/index.css";
 import "../css/style.css";
-import carimg from "../images/car1.jpg";
-
-
-
-const postdata = [
-  {
-    image:  "https://images.freeimages.com/images/large-previews/797/sata-1-1242366.jpg" ,
-    title: "Mustang",
-    para: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nonomnis autem ipsum ad nisi laudantium commodi placeatcorporis, vel tenetur.",
-    id: 1,
-  },
-  {
-    image:  carimg ,
-    title: "buggati",
-    para: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nonomnis autem ipsum ad nisi laudantium commodi placeatcorporis, vel tenetur.",
-    id: 2,
-  },
-  {
-    image:  carimg ,
-    title: "chevrolet",
-    para: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nonomnis autem ipsum ad nisi laudantium commodi placeatcorporis, vel tenetur.",
-    id: 3,
-  },
-  {
-    image:  carimg ,
-    title: "hyundai",
-    para: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nonomnis autem ipsum ad nisi laudantium commodi placeatcorporis, vel tenetur.",
-    id: 4,
-  },
-  {
-    image:  carimg ,
-    title: "ford",
-    para: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nonomnis autem ipsum ad nisi laudantium commodi placeatcorporis, vel tenetur.",
-    id: 5,
-  },
-  {
-    image:  carimg ,
-    title: "suzuki",
-    para: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Nonomnis autem ipsum ad nisi laudantium commodi placeatcorporis, vel tenetur.",
-    id: 6,
-  },
-];
 
 const Home = () => {
-  const imgPath = `../uploads/`;
+
   const [display, setDisplay] = useState("none");
   const [selectedPost ,setSelectedPost] = useState(null);
   const [items,setItems] = useState([]);
+  const [searchQuery,setSearchQuery]= useState("");
+
+  const fetchSearchResults = (query) => {
+    
+    axios.get(`http://localhost:5000/api/search?q=${query}`)
+      .then((response) => {
+        setItems(response.data);
+      })
+      .catch((error) => console.log("Error fetching search results", error));
+  };
+  
 
   useEffect(()=>{
     axios.get('http://localhost:5000/api/items')
@@ -72,11 +41,14 @@ const Home = () => {
       <div className="wrapper">
         <div className="container">
           <div className="navbar">
-
-            <div className="formContainer">
+          <h1 className="logo">Nebula</h1>
+            <div className="formContainer"> 
               <div className="searchContainer" style={{marginRight:"20px"}}>
-                <form className="searchform" action="" style={{display:"flex", flexDirection:"row"}}>
-                  <input className="search" type="text" placeholder="search" style={{color:"#000"}}/>
+                <form className="searchform" action="" style={{display:"flex", flexDirection:"row"}} onSubmit={(e)=>{
+                  e.preventDefault();
+                  fetchSearchResults(searchQuery);
+                }}>
+                  <input className="search" type="text" placeholder="search" value={searchQuery} onChange={(e)=>setSearchQuery(e.target.value)}/>
                   <button  className="searchBtn" type="submit">GO</button>
                 </form>
               </div>
@@ -122,7 +94,7 @@ const Home = () => {
                         className="openPost btnsecondary"
                         onClick={()=>handleOpenPost(data.post_id)}
                       >
-                        Show Post
+                        Read
                       </button>
                     </div>
                   </div>
@@ -134,7 +106,7 @@ const Home = () => {
         </div>
       </div>
       {selectedPost&& 
-      <div className="showPostContainer" style={{ display: display }}>
+      <div className="showPostContainer" style={{ display: display ,position:"absolute"}}>
         <div className="scroller">
           <img className="openPostImg" src={`http://localhost:5000/uploads/${selectedPostData.filename}`} alt="cant retrieve from database" />
           <div className="openPostContent">
@@ -151,9 +123,9 @@ const Home = () => {
         <button
           onClick={handleClosePost}
           className="btnprimary"
-          style={{ position: "absolute", bottom: 0, backgroundColor: "red" }}
+          style={{ position: "absolute", top: 10,right:70, backgroundColor: "red",height:"20px",width:"20px",margin:0,borderRadius:"50%",position:"fixed", }}
         >
-          close
+          x
         </button>
       </div>
 }

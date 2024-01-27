@@ -174,6 +174,45 @@ app.post("/api/signup", (req, res) => {
         }
     });
 });
+//search posts:
+
+// Add this route after the existing routes
+
+app.get("/api/search", (req, res) => {
+    const searchQuery = req.query.q; // Get the search query from the request parameters
+    const sql = "SELECT * FROM blog_posts WHERE title LIKE ? OR content LIKE ?";
+    const queryParams = [`%${searchQuery}%`, `%${searchQuery}%`];
+  
+    db.query(sql, queryParams, (err, results) => {
+      if (err) {
+        console.log("MySQL error", err);
+        res.status(500).json({ error: "Internal Server Error" });
+      } else {
+        res.status(200).json(results);
+        // console.log(results)
+      }
+    });
+  });
+  
+// delete post
+
+app.delete("/api/deletepost/:postId", (req, res) => {
+    const postId = req.params.postId;
+  
+    const deletePostQuery = "DELETE FROM blog_posts WHERE post_id = ?";
+    db.query(deletePostQuery, [postId], (err, result) => {
+      if (err) {
+        console.error("MySQL error:", err);
+        res.status(500).json({ success: false, message: "Internal Server Error" });
+      } else {
+        if (result.affectedRows > 0) {
+          res.status(200).json({ success: true, message: "Post deleted successfully" });
+        } else {
+          res.status(404).json({ success: false, message: "Post not found" });
+        }
+      }
+    });
+  });
 
 
 app.listen(5000,()=>{
