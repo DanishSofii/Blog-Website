@@ -3,9 +3,10 @@ const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const multer = require('multer');
+const dotenv = require("dotenv");
 
 const app = express();
-
+dotenv.config();
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -25,10 +26,10 @@ const storage = multer.diskStorage({
 
 
 const db = mysql.createConnection({
-    host:"localhost",
-    user:"root",
-    password:"686075",
-    database:"blogdb"
+    host:process.env.DB_HOST,
+    user:process.env.DB_USERNAME,
+    password:process.env.DB_PASSWORD,
+    database:process.env.DB_DBNAME
 });
 
 
