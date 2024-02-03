@@ -52,12 +52,12 @@ const Home = () => {
                   <button  className="searchBtn" type="submit">GO</button>
                 </form>
               </div>
-            <form action="https://nebula-30n8.onrender.com/Signin">
+            <form action="/Signin">
               <button type="submit" className="btnsecondary">
                 Sign in
               </button>
             </form>
-            <form action="https://nebula-30n8.onrender.com/signup">
+            <form action="/signup">
               <button type="submit" className="btnsecondary" s>
                 Sign up
               </button>
