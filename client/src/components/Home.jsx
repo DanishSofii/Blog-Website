@@ -123,7 +123,7 @@ const Home = () => {
         <button
           onClick={handleClosePost}
           className="btnprimary"
-          style={{ position: "absolute", top: 10,right:70, backgroundColor: "red",height:"20px",width:"20px",margin:0,borderRadius:"50%",position:"fixed", }}
+          style={{ position: "absolute", top: 10,right:10, backgroundColor: "red",height:"20px",width:"20px",margin:0,borderRadius:"50%",position:"fixed", }}
         >
           x
         </button>

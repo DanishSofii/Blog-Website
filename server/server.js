@@ -15,7 +15,7 @@ app.use(express.static('public'))
 
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
-      callback(null, 'public/uploads'); // Create an 'uploads' directory in your project
+      callback(null, 'public/uploads');
     },
     filename: (req, file, callback) => {
       callback(null, file.originalname);
@@ -90,8 +90,7 @@ app.post('/api/uploadpostimg', (req, res) => {
   
 app.post("/api/checkvaliduser",(req,res)=>{
     const { username, password } = req.body;
-    // console.log(username)
-    // console.log(password);
+    
     const sql = "select * from users where username = ? and password_hash = ?";
     db.query(sql,[username,password],(err,result)=>{
         if(err){
@@ -108,12 +107,7 @@ app.post("/api/checkvaliduser",(req,res)=>{
             console.log("not valid");
         }
     })
-    // if(user === result.username && pass === result.password_hash){
-    //     console.log("Valid")
-    // }
-    // else{
-    //     console.log("not valid");
-    // }
+
 })
 
 app.get("/User/:userId", (req, res) => {
@@ -152,7 +146,6 @@ app.get("/getUserPosts/:userId", (req, res) => {
             return res.status(404).send({ success: false, message: "posts not found" });
         } else if(posts.length >0){
             const post = posts;   
-            // console.log(post)
             return res.status(200).send({ success: true, post });
         }
     });
@@ -175,12 +168,9 @@ app.post("/api/signup", (req, res) => {
         }
     });
 });
-//search posts:
-
-// Add this route after the existing routes
 
 app.get("/api/search", (req, res) => {
-    const searchQuery = req.query.q; // Get the search query from the request parameters
+    const searchQuery = req.query.q;
     const sql = "SELECT * FROM blog_posts WHERE title LIKE ? OR content LIKE ?";
     const queryParams = [`%${searchQuery}%`, `%${searchQuery}%`];
   
@@ -190,7 +180,6 @@ app.get("/api/search", (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
       } else {
         res.status(200).json(results);
-        // console.log(results)
       }
     });
   });

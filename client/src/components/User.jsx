@@ -17,6 +17,8 @@ const User = ({ user }) => {
   const [userPosts, setUserPosts] = useState([]);
   const [homeItems, setHomeItems] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [menuOpen, setMenuOpen] = useState(true);
+  const [scrollvisible, setScrollVisible] = useState(false);
 
   useEffect(() => {
     axios
@@ -127,17 +129,41 @@ const User = ({ user }) => {
         });
     }
   };
+  const handlemenuchange = ()=>{
+      setMenuOpen(!menuOpen);
+  }
+
+  const handleScroll = () => {
+    const scrollTop = window.scrollY;
+    setScrollVisible(scrollTop > 100); // Change 100 to a different value if you want the button to appear at a different scroll position
+  };
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <div className="wrapper">
       <div className="sidebar">
         <div className="userDetails">
           <img className="userImg" src={carimg} alt="" />
+          
+          <div className="usernamecont">
+          <button  className="menu" onClick={handlemenuchange} >menu</button>
           <h3 className="userTitle">
             {userDetails ? userDetails.name : "Loading..."}
           </h3>
+          </div>
         </div>
-        <div className="userBtnContainer">
+        <div className="userBtnContainer"  style={{display: menuOpen ? "block":"none"}}>
           <button className="userBtn" onClick={() => setSelectedTab(1)}>
             User Profile
           </button>
@@ -161,7 +187,7 @@ const User = ({ user }) => {
               }}
             >
               <input
-                className="search usersearch"
+                className="search usersearch usch"
                 type="text"
                 placeholder="search"
                 style={{ color: "#000" }}
@@ -402,9 +428,9 @@ const User = ({ user }) => {
                 onClick={handleClosePost}
                 className="btnprimary"
                 style={{
-                  position: "fixed",
+                  position: "absolute",
                   top: "10px",
-                  right: 70,
+                  right: 10,
                   backgroundColor: "red",
                   borderRadius: "100%",
                   width: "30px",
@@ -417,7 +443,19 @@ const User = ({ user }) => {
           )}
         </div>
       )}
+      <button
+      className="scrollbtn"
+      onClick={scrollToTop}
+      style={{
+        display: scrollvisible ? 'block' : 'none',
+        position: 'fixed',
+        bottom: '20px',
+        right: '20px',
+      }}
+    >Top
+    </button>
     </div>
+    
   );
 };
 

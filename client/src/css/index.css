@@ -44,6 +44,7 @@
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
   border-right:none ;
+  padding: 0.5rem;
 }
 .searchBtn{
   width:3rem;
@@ -95,3 +96,30 @@
     background-color: transparent; /* Set the color of the track (the non-moving part of the scrollbar) */
   }
 
+
+
+  @media  screen and ( max-width:652px){
+    .navbar{
+      /* height: 2.5rem; */
+      height: 5.5rem;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-direction: column;
+      /* background-color: transparent; */
+      position: sticky;
+      /* top: 0; */
+      padding: 0;
+      /* background-color: red   ; */
+  }
+  }
+
+  @media screen and (max-width:510px){
+    .search{
+      width: 7rem;
+    }
+    
+    
+    
+  }

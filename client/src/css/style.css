@@ -127,15 +127,15 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    top: 0.2rem;
-    left: 3%;
-    right: 25%;
-    /* backdrop-filter: blur(15px); */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     border-radius:10px ;
     border:2px solid black;
-    height: 97vh;
+    height: 94vh;
     transition: all 0.2s ease-in-out;
     overflow-y:auto ;
+    z-index: 20;
 }
 .scroller{
     /* overflow: auto; */
@@ -189,3 +189,61 @@
     overflow: hidden;
   }
   
+
+  @media screen and (max-width:1495px){
+    .showPostContainer{
+        width: 80rem; }
+  }
+  @media screen and (max-width:1320px){
+    .showPostContainer{
+        width: 70rem;
+ }
+  }
+  @media screen and (max-width:1160px){
+    .showPostContainer{      
+        width: 50rem; 
+    }
+  }
+  @media screen and (max-width:830px){
+    .showPostContainer{    
+        width: 40rem;
+    }
+  }
+  @media screen and (max-width:830px){
+    .showPostContainer{
+        width: 30rem;
+    }
+    .openPostImg{
+        height: 40vh;
+    }
+  }
+  @media screen and (max-width:570px){
+    .showPostContainer{
+        position: fixed;
+        top: 5%;
+        left: 7%;
+        transform: translate(0%, 0%);
+
+    }
+    .openPostImg{
+        height: 40vh;
+    }
+  }
+
+
+  @media screen and (max-width:505px){
+    .showPostContainer{
+        width: 25rem;
+    }
+    .openPostImg{
+        height: 30vh;
+    }
+  }
+  @media screen and (max-width:440px){
+    .showPostContainer{
+        width: 20rem;     
+    }
+    .openPostImg{
+        height: 25vh;
+    }
+  }
