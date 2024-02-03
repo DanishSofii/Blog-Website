@@ -12,7 +12,7 @@ const Signin = ({onLogin}) => {
     e.preventDefault();
   
     try {
-      const response = await axios.post("http://localhost:5000/api/checkvaliduser", {
+      const response = await axios.post("https://nebula-30n8.onrender.com/api/checkvaliduser", {
         username,
         password,
       });
@@ -39,7 +39,7 @@ const Signin = ({onLogin}) => {
                     <button className='gotohome'>x</button>
                 </form>
             <div class="heading-container"><h2 class="heading-text"> <span id="log">LogIn</span></h2></div>
-                <form action="http://localhost:5000/api/checkvaliduser" method="post">
+                <form action="https://nebula-30n8.onrender.com/api/checkvaliduser" method="post">
                     <input type="text" name="uname" placeholder="Username" value={username} onChange={(e)=> setUsername(e.target.value)} required/>
                     <input type="password" name="upass" placeholder="Password" autocomplete="off" value={password} onChange={(e)=>{setPassword(e.target.value)}} required/>
                     <button type="submit" onClick={handleLogin}>LogIn</button>

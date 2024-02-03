@@ -16,7 +16,7 @@ const Signin = () => {
     e.preventDefault();
   
     try {
-      const response = await axios.post("http://localhost:5000/api/signup",{
+      const response = await axios.post("https://nebula-30n8.onrender.com/api/signup",{
         name,userName,password,email,pnumber,dob
       });
   

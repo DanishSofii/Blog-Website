@@ -12,7 +12,7 @@ const Home = () => {
 
   const fetchSearchResults = (query) => {
     
-    axios.get(`http://localhost:5000/api/search?q=${query}`)
+    axios.get(`https://nebula-30n8.onrender.com/api/search?q=${query}`)
       .then((response) => {
         setItems(response.data);
       })
@@ -21,7 +21,7 @@ const Home = () => {
   
 
   useEffect(()=>{
-    axios.get('http://localhost:5000/api/items')
+    axios.get('https://nebula-30n8.onrender.com/api/items')
     .then(response=> setItems(response.data))
     .catch(error => console.log("Error fetching items",error));
   },[]);
@@ -52,12 +52,12 @@ const Home = () => {
                   <button  className="searchBtn" type="submit">GO</button>
                 </form>
               </div>
-            <form action="/Signin">
+            <form action="https://nebula-30n8.onrender.com/Signin">
               <button type="submit" className="btnsecondary">
                 Sign in
               </button>
             </form>
-            <form action="/signup">
+            <form action="https://nebula-30n8.onrender.com/signup">
               <button type="submit" className="btnsecondary" s>
                 Sign up
               </button>
@@ -74,7 +74,7 @@ const Home = () => {
                     <img
                       className="blogImage"
                       // src={data.image} 
-                      src={`http://localhost:5000/uploads/${data.filename}`}
+                      src={`https://nebula-30n8.onrender.com/uploads/${data.filename}`}
                       alt="blogImage"
                     />
                   </div>
@@ -108,7 +108,7 @@ const Home = () => {
       {selectedPost&& 
       <div className="showPostContainer" style={{ display: display ,position:"absolute"}}>
         <div className="scroller">
-          <img className="openPostImg" src={`http://localhost:5000/uploads/${selectedPostData.filename}`} alt="cant retrieve from database" />
+          <img className="openPostImg" src={`https://nebula-30n8.onrender.com/uploads/${selectedPostData.filename}`} alt="cant retrieve from database" />
           <div className="openPostContent">
             <div className="openPostTitleContainer">
               <h1 className="openPostTitle">{selectedPostData.title}</h1>

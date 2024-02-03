@@ -22,14 +22,14 @@ const User = ({ user }) => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/items")
+      .get("https://nebula-30n8.onrender.com/api/items")
       .then((response) => setHomeItems(response.data))
       .catch((error) => console.log("Error fetching items", error));
   }, []);
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/User/${user}`);
+        const response = await axios.get(`https://nebula-30n8.onrender.com/User/${user}`);
         if (response.data.success) {
           setUserDetails(response.data.user);
           console.log(userDetails);
@@ -44,7 +44,7 @@ const User = ({ user }) => {
     const fetchUserPosts = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/getUserPosts/${user}`
+          `https://nebula-30n8.onrender.com/getUserPosts/${user}`
         );
         if (response.data.success) {
           setUserPosts(response.data.post);
@@ -77,7 +77,7 @@ const User = ({ user }) => {
     formData.append("userid", user);
 
     axios
-      .post("http://localhost:5000/api/uploadpostimg", formData)
+      .post("https://nebula-30n8.onrender.com/api/uploadpostimg", formData)
       .then((response) => {
         console.log(response.data);
         // Handle success or redirect to another page
@@ -99,7 +99,7 @@ const User = ({ user }) => {
     : null;
   const fetchSearchResults = (query) => {
     axios
-      .get(`http://localhost:5000/api/search?q=${query}`)
+      .get(`https://nebula-30n8.onrender.com/api/search?q=${query}`)
       .then((response) => {
         setHomeItems(response.data);
       })
@@ -112,7 +112,7 @@ const User = ({ user }) => {
     );
     if (confirmDelete) {
       axios
-        .delete(`http://localhost:5000/api/deletepost/${postId}`)
+        .delete(`https://nebula-30n8.onrender.com/api/deletepost/${postId}`)
         .then((response) => {
           if (response.data.success) {
         
@@ -300,7 +300,7 @@ const User = ({ user }) => {
                 <div className="blogImageContainer">
                   <img
                     className="blogImage"
-                    src={`http://localhost:5000/uploads/${data.filename}`}
+                    src={`https://nebula-30n8.onrender.com/uploads/${data.filename}`}
                     alt="blogImage"
                   />
                   {console.log("jdfejfj", userPosts)}
@@ -339,7 +339,7 @@ const User = ({ user }) => {
               <div className="scroller">
                 <img
                   className="openPostImg"
-                  src={`http://localhost:5000/uploads/${selectedPostData.filename}`}
+                  src={`https://nebula-30n8.onrender.com/uploads/${selectedPostData.filename}`}
                   alt="Can't retreive data from database"
                 />
                 <div className="openPostContent">
@@ -380,7 +380,7 @@ const User = ({ user }) => {
                 <div className="blogImageContainer">
                   <img
                     className="blogImage"
-                    src={`http://localhost:5000/uploads/${data.filename}`}
+                    src={`https://nebula-30n8.onrender.com/uploads/${data.filename}`}
                     alt="blogImage"
                   />
                 </div>
@@ -412,7 +412,7 @@ const User = ({ user }) => {
               <div className="scroller">
                 <img
                   className="openPostImg"
-                  src={`http://localhost:5000/uploads/${selectedPostData.filename}`}
+                  src={`https://nebula-30n8.onrender.com/uploads/${selectedPostData.filename}`}
                   alt=""
                 />
                 <div className="openPostContent">
