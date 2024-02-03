@@ -1,0 +1,10 @@
+version: 1
+services:
+  - name: frontend
+    type: web
+    buildCommand: cd client && npm install && npm run build
+    startCommand: npm start
+  - name: backend
+    type: web
+    buildCommand: cd server && npm install 
+    startCommand: npm start
