@@ -9,7 +9,8 @@ const Home = () => {
   const [selectedPost ,setSelectedPost] = useState(null);
   const [items,setItems] = useState([]);
   const [searchQuery,setSearchQuery]= useState("");
-  const [message,setMessage]=useState("")
+  const [message,setMessage]=useState("");
+  
 
   const fetchSearchResults = (query) => {
     
@@ -69,7 +70,7 @@ const Home = () => {
           </div>
           <div className="blogsWrapper">
             {
-            
+            items.length > 0 ?
             items.map((data) => {
               return (
                 
@@ -106,7 +107,7 @@ const Home = () => {
                   </div>
                 </div>
               );
-            })}
+            }) : <h3>Loading data from backend please refresh after 50 seconds{}</h3>}
           </div>
           
         </div>
