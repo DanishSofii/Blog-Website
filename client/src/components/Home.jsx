@@ -9,6 +9,7 @@ const Home = () => {
   const [selectedPost ,setSelectedPost] = useState(null);
   const [items,setItems] = useState([]);
   const [searchQuery,setSearchQuery]= useState("");
+  const [message,setMessage]=useState("")
 
   const fetchSearchResults = (query) => {
     
@@ -23,7 +24,9 @@ const Home = () => {
   useEffect(()=>{
     axios.get('https://nebula-30n8.onrender.com/api/items')
     .then(response=> setItems(response.data))
-    .catch(error => console.log("Error fetching items",error));
+    .catch(error => setMessage(error));
+    console.log(message)
+
   },[]);
   
   function handleOpenPost(postid) {
@@ -65,8 +68,11 @@ const Home = () => {
             </div>
           </div>
           <div className="blogsWrapper">
-            {items.map((data) => {
+            {
+            
+            items.map((data) => {
               return (
+                
                 
                 <div className="blogContainer" key={data.post_id}>
                   

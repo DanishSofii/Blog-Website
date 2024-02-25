@@ -19,6 +19,7 @@ const User = ({ user }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [menuOpen, setMenuOpen] = useState(true);
   const [scrollvisible, setScrollVisible] = useState(false);
+  const [createPostMessgae , setCreatePostMessage] = useState("");
 
   useEffect(() => {
     axios
@@ -81,9 +82,11 @@ const User = ({ user }) => {
       .then((response) => {
         console.log(response.data);
         // Handle success or redirect to another page
+        setCreatePostMessage(response.data.success)
       })
       .catch((error) => {
         console.error("Error uploading image:", error);
+        setCreatePostMessage("Error Uploading");
       });
   };
   function handleOpenPost(postid) {
@@ -251,7 +254,7 @@ const User = ({ user }) => {
             className="postUploadForm"
             action="/api/uploadpostimg"
             onSubmit={handleSubmit}
-          >
+          >  <h3>{createPostMessgae}</h3>
             <fieldset className="fset fsetimg">
               <label className="uimglbl" htmlFor="postUploadImg">
                 Image
