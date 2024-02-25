@@ -45,10 +45,10 @@ const Signin = () => {
                     <input type="text" name="uname" placeholder="UserName" onChange={(e)=> setUserName(e.target.value)} required/>
                     <input type="password" name="password" placeholder="Password" autocomplete="off" onChange={(e)=> setPassword(e.target.value)} required/>
                     <input type="text" name="email" placeholder="Email" onChange={(e)=> setEmail(e.target.value)} required/>
-                    <input type="text" name="dob" placeholder="DOB" onChange={(e)=> setDob(e.target.value)} required/>
+                    <input type="text" name="dob" placeholder="DOB YYYY-MM-DD" onChange={(e)=> setDob(e.target.value)} required/>
                     <input type="text" name="pnumber" placeholder="Phone number" onChange={(e)=> setPnumner(e.target.value)} required/>
                     <button type="submit" onClick={handleSignup}>Signup</button>
-                    <h2>{message}</h2>
+                    <h4>{message}</h4>
                     
                     <form action="/signin">
                         <button >Login</button>

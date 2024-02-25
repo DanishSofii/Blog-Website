@@ -19,7 +19,7 @@ const User = ({ user }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [menuOpen, setMenuOpen] = useState(true);
   const [scrollvisible, setScrollVisible] = useState(false);
-  const [createPostMessgae , setCreatePostMessage] = useState("");
+  const [createPostMessgae , setCreatePostMessage] = useState("Upload a new post");
 
   useEffect(() => {
     axios
