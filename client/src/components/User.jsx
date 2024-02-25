@@ -82,7 +82,7 @@ const User = ({ user }) => {
       .then((response) => {
         console.log(response.data);
         // Handle success or redirect to another page
-        setCreatePostMessage(response.data.success)
+        setCreatePostMessage("Uploaded Post....");
       })
       .catch((error) => {
         console.error("Error uploading image:", error);
