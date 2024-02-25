@@ -35,7 +35,7 @@ const Home = () => {
       if(seconds > 0){
         setSeconds(prevSeconds => prevSeconds -1);
 
-      }else{
+      }else if(seconds < 0){
         clearInterval(interval)
       }
     },1000)
