@@ -10,7 +10,7 @@ const Home = () => {
   const [items,setItems] = useState([]);
   const [searchQuery,setSearchQuery]= useState("");
   const [message,setMessage]=useState("");
-  
+  const [seconds, setSeconds]= useState(50);
 
   const fetchSearchResults = (query) => {
     
@@ -30,6 +30,17 @@ const Home = () => {
 
   },[]);
   
+  useEffect(()=>{
+    const interval = setInterval(()=>{
+      if(seconds > 0){
+        setSeconds(prevSeconds => prevSeconds -1);
+
+      }else{
+        clearInterval(interval)
+      }
+    },1000)
+  },[seconds]);
+
   function handleOpenPost(postid) {
     setDisplay("flex");
     setSelectedPost(postid);
@@ -107,7 +118,7 @@ const Home = () => {
                   </div>
                 </div>
               );
-            }) : <h3>Loading data from backend please refresh after 50 seconds{}</h3>}
+            }) : <h3>Loading data from backend please refresh after {seconds} seconds</h3>}
           </div>
           
         </div>
