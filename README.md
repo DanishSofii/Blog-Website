@@ -1,4 +1,4 @@
-![blog1](https://github.com/DanishSofii/Blog-Website/assets/146963321/f851465e-6e2e-42ac-900f-ed22b4f1a6a6)# Blog Website
+# Blog Website
 
 A simple blogging website made using React JS, Node JS, Express JS, MySQL and Tailwind CSS
 
