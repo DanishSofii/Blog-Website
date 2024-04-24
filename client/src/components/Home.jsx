@@ -30,16 +30,20 @@ const Home = () => {
 
   },[]);
   
-  useEffect(()=>{
-    const interval = setInterval(()=>{
-      if(seconds > 0){
-        setSeconds(prevSeconds => prevSeconds -1);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setSeconds(prevSeconds => {
+        if (prevSeconds === 0) {
+          clearInterval(intervalId);
+          return 0;
+        } else {
+          return prevSeconds - 1;
+        }
+      });
+    }, 1000);
 
-      }else if(seconds < 0){
-        clearInterval(interval)
-      }
-    },1000)
-  },[seconds]);
+    return () => clearInterval(intervalId);
+  }, []);
 
   function handleOpenPost(postid) {
     setDisplay("flex");
